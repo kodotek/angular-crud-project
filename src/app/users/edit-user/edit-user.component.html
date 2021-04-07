@@ -1,0 +1,90 @@
+<div class="container p-4">
+  <h1>
+    Editando usuario con id:
+    <span class="badge bg-primary rounded-pill">{{ employeeId }}</span>
+  </h1>
+
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        aria-current="page"
+        [routerLink]="['/users', 'list']"
+        >Volver</a
+      >
+    </li>
+  </ul>
+
+  <div class="alert alert-danger" role="alert" *ngIf="messageError != ''">
+    {{ messageError }}
+  </div>
+
+  <form
+    [formGroup]="employeeForm"
+    novalidate
+    *ngIf="messageError == ''"
+    class="p-4"
+  >
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+      />
+      <div
+        [hidden]="
+          employeeForm.controls['name'].valid ||
+          employeeForm.controls['name'].pristine
+        "
+        class="alert alert-danger"
+      >
+        El nombre debe tener al menos 4 caracteres.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        formControlName="email"
+      />
+      <div
+        [hidden]="
+          employeeForm.controls['email'].valid ||
+          employeeForm.controls['email'].pristine
+        "
+        class="alert alert-danger"
+      >
+        El email no es válido.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="age">Edad</label>
+      <input type="text" class="form-control" id="age" formControlName="age" />
+    </div>
+
+    <div class="mb-3">
+      <label for="job">Puesto</label>
+      <select class="form-select" id="job" formControlName="job">
+        <option *ngFor="let job of jobs" [value]="job">{{ job }}</option>
+      </select>
+    </div>
+
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchCheckDefault"
+        formControlName="isActive"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >¿Activo?</label
+      >
+    </div>
+  </form>
+</div>
